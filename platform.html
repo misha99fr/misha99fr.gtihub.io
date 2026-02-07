@@ -32,6 +32,9 @@
             font-size: 18px;
             font-weight: 600;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .nav-links {
@@ -51,44 +54,38 @@
             padding: 40px 20px;
         }
         
-        .breadcrumb {
-            color: #007aff;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        
-        .breadcrumb a {
-            color: #007aff;
-            text-decoration: none;
-        }
-        
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-        
         .page-title {
             text-align: center;
             font-size: 32px;
             font-weight: 400;
+            margin-bottom: 15px;
+        }
+        
+        .page-subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 16px;
             margin-bottom: 50px;
         }
         
         .platforms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
-            max-width: 600px;
+            max-width: 400px;
             margin: 0 auto;
         }
         
         .platform-card {
             background: #252525;
-            border-radius: 20px;
-            padding: 40px;
+            border-radius: 16px;
+            padding: 30px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
             border: 2px solid transparent;
+            text-decoration: none;
+            color: inherit;
         }
         
         .platform-card:hover {
@@ -98,19 +95,19 @@
         }
         
         .platform-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 20px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            border-radius: 24px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
+            font-size: 40px;
         }
         
         .platform-name {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
         }
         
@@ -139,11 +136,8 @@
     </nav>
     
     <div class="container">
-        <div class="breadcrumb">
-            <a href="index.html">Choose Product</a> › Choose Platform
-        </div>
-        
         <h1 class="page-title">Choose a Platform</h1>
+        <p class="page-subtitle">Select OVKisser Client to view available versions</p>
         
         <div class="platforms-grid">
             <a href="versions.html" class="platform-card">
