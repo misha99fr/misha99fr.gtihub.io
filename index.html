@@ -18,7 +18,6 @@
             min-height: 100vh;
         }
         
-        /* Шапка */
         .navbar {
             background: #007aff;
             padding: 0 20px;
@@ -46,18 +45,12 @@
             font-size: 14px;
         }
         
-        .nav-links a:hover {
-            color: white;
-        }
-        
-        /* Контейнер */
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 30px 20px;
         }
         
-        /* Заголовок */
         .page-title {
             text-align: center;
             font-size: 28px;
@@ -66,7 +59,6 @@
             color: #fff;
         }
         
-        /* Табы */
         .tabs {
             display: flex;
             border-bottom: 1px solid #333;
@@ -85,7 +77,6 @@
             border-bottom-color: #007aff;
         }
         
-        /* Описание */
         .description {
             color: #aaa;
             font-size: 14px;
@@ -93,7 +84,6 @@
             line-height: 1.5;
         }
         
-        /* Секции Signed/Unsigned */
         .section {
             margin-bottom: 40px;
         }
@@ -105,7 +95,6 @@
             color: #fff;
         }
         
-        /* Таблица */
         .firmware-list {
             background: #252525;
             border-radius: 8px;
@@ -128,7 +117,6 @@
             background: #2a2a2a;
         }
         
-        /* Иконки статуса */
         .status-icon {
             width: 24px;
             height: 24px;
@@ -148,7 +136,6 @@
             color: #ff453a;
         }
         
-        /* Версия */
         .version {
             width: 200px;
             font-size: 15px;
@@ -162,14 +149,12 @@
             color: #ff453a;
         }
         
-        /* Дата */
         .date {
             width: 180px;
             color: #888;
             font-size: 14px;
         }
         
-        /* Размер */
         .size {
             width: 100px;
             color: #888;
@@ -177,7 +162,6 @@
             text-align: right;
         }
         
-        /* Имя файла */
         .filename {
             flex: 1;
             color: #666;
@@ -186,7 +170,6 @@
             font-family: "SF Mono", Monaco, monospace;
         }
         
-        /* Сайдбар шаги */
         .main-layout {
             display: flex;
             gap: 30px;
@@ -223,7 +206,33 @@
             flex: 1;
         }
         
-        /* Футер */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #ff453a;
+        }
+        
+        .refresh-btn {
+            background: #007aff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .refresh-btn:hover {
+            background: #0051d5;
+        }
+        
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -238,7 +247,6 @@
             text-decoration: none;
         }
         
-        /* Адаптив */
         @media (max-width: 768px) {
             .main-layout {
                 flex-direction: column;
@@ -246,17 +254,13 @@
             .sidebar {
                 width: 100%;
             }
-            .filename {
-                display: none;
-            }
-            .date {
+            .filename, .date {
                 display: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Навбар -->
     <nav class="navbar">
         <a href="#" class="nav-brand">🔒 OVKisser Sign Server</a>
         <div class="nav-links">
@@ -268,7 +272,6 @@
     
     <div class="container">
         <div class="main-layout">
-            <!-- Сайдбар -->
             <aside class="sidebar">
                 <div class="step">
                     <span class="step-number">1.</span> Choose product
@@ -284,64 +287,147 @@
                 </div>
             </aside>
             
-            <!-- Контент -->
             <main class="content">
                 <h1 class="page-title">Choose a version for OVKisser</h1>
                 
                 <div class="tabs">
-                    <div class="tab active">Signed</div>
-                    <div class="tab">Unsigned</div>
+                    <div class="tab active">All Versions</div>
                 </div>
                 
                 <p class="description">
                     Signed versions can be used without restrictions. Unsigned versions are revoked and cannot be used.
                 </p>
                 
-                <!-- Signed -->
-                <div class="section">
-                    <h2 class="section-title">Signed</h2>
-                    <div class="firmware-list">
-                        <div class="firmware-item signed">
-                            <div class="status-icon">✓</div>
-                            <div class="version">OvkisserTrue v1.0r</div>
-                            <div class="date">Active</div>
-                            <div class="size">Latest</div>
-                            <div class="filename">OvkisserTruev1.0r_signed</div>
-                        </div>
-                    </div>
+                <div id="status-container">
+                    <div class="loading">Loading signatures from server...</div>
                 </div>
                 
-                <!-- Unsigned -->
-                <div class="section">
-                    <h2 class="section-title">Unsigned</h2>
-                    <div class="firmware-list">
-                        <div class="firmware-item unsigned">
-                            <div class="status-icon">✗</div>
-                            <div class="version">OvkisserLite v1.4</div>
-                            <div class="date">Revoked</div>
-                            <div class="size">Old</div>
-                            <div class="filename">OvkisserLitev1.4_revoked</div>
-                        </div>
-                        <div class="firmware-item unsigned">
-                            <div class="status-icon">✗</div>
-                            <div class="version">OvkisserTrue VD</div>
-                            <div class="date">Revoked</div>
-                            <div class="size">Dev</div>
-                            <div class="filename">OvkisserTrueVD_revoked</div>
-                        </div>
-                    </div>
-                </div>
+                <button class="refresh-btn" onclick="loadStatus()">🔄 Refresh</button>
             </main>
         </div>
     </div>
     
     <footer>
         <p>Powered by HamsterCMS • <a href="https://t.me/ovkisserfun">Telegram Channel</a></p>
-        <p style="margin-top: 10px;">Last updated: <span id="update"></span></p>
+        <p style="margin-top: 10px;">Source: <span id="source">cackemc10.w10.site</span> • Last updated: <span id="update">-</span></p>
     </footer>
     
     <script>
-        document.getElementById('update').textContent = new Date().toLocaleString();
+        // Твой сервер с данными
+        const SOURCE_URL = 'https://cackemc10.w10.site/cgi-bin/cms/msdos';
+        
+        // Тестовые данные (если сервер недоступен)
+        const TEST_DATA = `
+            OvkisserLitev1.4=revoked
+            OvkisserTrueVD=revoked
+            OvkisserTruev1.0r=signed
+        `;
+        
+        async function loadStatus() {
+            const container = document.getElementById('status-container');
+            container.innerHTML = '<div class="loading">Loading signatures from server...</div>';
+            
+            try {
+                // Пробуем загрузить с сервера (через прокси если нужно)
+                let html;
+                try {
+                    const response = await fetch(SOURCE_URL, { 
+                        mode: 'no-cors',
+                        cache: 'no-cache'
+                    });
+                    html = await response.text();
+                } catch (e) {
+                    // Если CORS блокирует, используем тестовые данные
+                    console.log('Server unavailable, using test data');
+                    html = TEST_DATA;
+                }
+                
+                parseAndDisplay(html);
+                
+            } catch (error) {
+                // Fallback на тестовые данные
+                parseAndDisplay(TEST_DATA);
+            }
+        }
+        
+        function parseAndDisplay(text) {
+            const container = document.getElementById('status-container');
+            
+            // Парсим строки вида OvkisserXXX=signed/revoked
+            const regex = /(Ovkisser[\w.]+)[=:]\s*(signed|revoked)/gi;
+            const versions = [];
+            let match;
+            
+            while ((match = regex.exec(text)) !== null) {
+                versions.push({
+                    name: match[1],
+                    status: match[2].toLowerCase(),
+                    isSigned: match[2].toLowerCase() === 'signed'
+                });
+            }
+            
+            if (versions.length === 0) {
+                container.innerHTML = '<div class="error">No signature data found</div>';
+                return;
+            }
+            
+            // Разделяем на signed и unsigned
+            const signed = versions.filter(v => v.isSigned);
+            const unsigned = versions.filter(v => !v.isSigned);
+            
+            let html = '';
+            
+            // Signed секция
+            if (signed.length > 0) {
+                html += `
+                    <div class="section">
+                        <h2 class="section-title">Signed (${signed.length})</h2>
+                        <div class="firmware-list">
+                `;
+                signed.forEach(v => {
+                    html += `
+                        <div class="firmware-item signed">
+                            <div class="status-icon">✓</div>
+                            <div class="version">${v.name}</div>
+                            <div class="date">Active</div>
+                            <div class="size">Verified</div>
+                            <div class="filename">${v.name}_signed</div>
+                        </div>
+                    `;
+                });
+                html += '</div></div>';
+            }
+            
+            // Unsigned секция
+            if (unsigned.length > 0) {
+                html += `
+                    <div class="section">
+                        <h2 class="section-title">Unsigned (${unsigned.length})</h2>
+                        <div class="firmware-list">
+                `;
+                unsigned.forEach(v => {
+                    html += `
+                        <div class="firmware-item unsigned">
+                            <div class="status-icon">✗</div>
+                            <div class="version">${v.name}</div>
+                            <div class="date">Revoked</div>
+                            <div class="size">Blocked</div>
+                            <div class="filename">${v.name}_revoked</div>
+                        </div>
+                    `;
+                });
+                html += '</div></div>';
+            }
+            
+            container.innerHTML = html;
+            document.getElementById('update').textContent = new Date().toLocaleString();
+        }
+        
+        // Загружаем при старте
+        loadStatus();
+        
+        // Автообновление каждые 30 секунд
+        setInterval(loadStatus, 30000);
     </script>
 </body>
 </html>
