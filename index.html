@@ -191,8 +191,8 @@
     </div>
     
     <script>
-        // CORS Proxy для получения данных с твоего сервера
-        const PROXY_URL = 'https://api.allorigins.win/get?url=';
+        // Прокси для обхода CORS
+        const PROXY_URL = 'https://corsproxy.io/?';
         const SOURCE_URL = 'https://cackemc10.w10.site/cgi-bin/cms/msdos';
         
         async function loadStatus() {
@@ -201,12 +201,10 @@
             
             try {
                 const response = await fetch(PROXY_URL + encodeURIComponent(SOURCE_URL));
-                const data = await response.json();
-                const html = data.contents;
+                const html = await response.text();
                 
                 // Парсим HTML и извлекаем статусы
                 const text = html.replace(/<[^>]*>/g, '');
-                const lines = text.split('\n').filter(line => line.trim());
                 
                 let statuses = [];
                 let signedCount = 0;
@@ -262,8 +260,7 @@
                     <div class="error">
                         [ ОШИБКА ПОДКЛЮЧЕНИЯ ]<br>
                         ${error.message}<br><br>
-                        Прямое соединение невозможно (CORS)<br>
-                        Проверьте работу прокси-сервера
+                        Проблема с прокси или сервер недоступен
                     </div>
                 `;
             }
