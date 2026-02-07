@@ -37,6 +37,12 @@
             gap: 10px;
         }
         
+        .nav-brand img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+        }
+        
         .nav-links {
             display: flex;
             gap: 25px;
@@ -233,7 +239,10 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="index.html" class="nav-brand">🔒 OVKisser Sign Server</a>
+        <a href="index.html" class="nav-brand">
+            <img src="logo.png" alt="OVKisser">
+            OVKisser Sign Server
+        </a>
         <div class="nav-links">
             <a href="index.html">Downloads</a>
             <a href="#">API</a>
