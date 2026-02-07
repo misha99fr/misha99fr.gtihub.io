@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OVKisser Sign Server</title>
+    <title>OVKisser Sign Server - Choose Product</title>
     <style>
         * {
             margin: 0;
@@ -46,199 +46,71 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 30px 20px;
+            padding: 40px 20px;
         }
         
         .page-title {
             text-align: center;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 400;
-            margin-bottom: 30px;
-            color: #fff;
-        }
-        
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid #333;
-            margin-bottom: 20px;
-        }
-        
-        .tab {
-            padding: 15px 30px;
-            color: #888;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-        }
-        
-        .tab.active {
-            color: #fff;
-            border-bottom-color: #007aff;
-        }
-        
-        .description {
-            color: #aaa;
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-        
-        .section {
-            margin-bottom: 40px;
-        }
-        
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
             margin-bottom: 15px;
-            color: #fff;
         }
         
-        .firmware-list {
+        .page-subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
             background: #252525;
-            border-radius: 8px;
-            overflow: hidden;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
         }
         
-        .firmware-item {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #333;
-            transition: background 0.2s;
-        }
-        
-        .firmware-item:last-child {
-            border-bottom: none;
-        }
-        
-        .firmware-item:hover {
+        .product-card:hover {
             background: #2a2a2a;
+            border-color: #007aff;
+            transform: translateY(-5px);
         }
         
-        .status-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 15px;
+        .product-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 50px;
         }
         
-        .signed .status-icon {
-            color: #30d158;
-        }
-        
-        .unsigned .status-icon {
-            color: #ff453a;
-        }
-        
-        .version {
-            width: 200px;
-            font-size: 15px;
-        }
-        
-        .signed .version {
-            color: #30d158;
-        }
-        
-        .unsigned .version {
-            color: #ff453a;
-        }
-        
-        .date {
-            width: 180px;
-            color: #888;
-            font-size: 14px;
-        }
-        
-        .size {
-            width: 100px;
-            color: #888;
-            font-size: 14px;
-            text-align: right;
-        }
-        
-        .filename {
-            flex: 1;
-            color: #666;
-            font-size: 13px;
-            text-align: right;
-            font-family: "SF Mono", Monaco, monospace;
-        }
-        
-        .main-layout {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .sidebar {
-            width: 250px;
-            flex-shrink: 0;
-        }
-        
-        .step {
-            padding: 15px 20px;
-            margin-bottom: 5px;
-            border-radius: 6px;
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .step.active {
-            background: #007aff;
-            color: white;
-        }
-        
-        .step-number {
-            color: #007aff;
-            margin-right: 8px;
-        }
-        
-        .step.active .step-number {
-            color: rgba(255,255,255,0.7);
-        }
-        
-        .content {
-            flex: 1;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #888;
-        }
-        
-        .error {
-            text-align: center;
-            padding: 40px;
-            color: #ff453a;
-        }
-        
-        .refresh-btn {
-            background: #007aff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-        
-        .refresh-btn:hover {
-            background: #0051d5;
+        .product-name {
+            font-size: 20px;
+            font-weight: 600;
         }
         
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px;
             color: #666;
             font-size: 13px;
-            border-top: 1px solid #333;
             margin-top: 50px;
         }
         
@@ -246,188 +118,32 @@
             color: #007aff;
             text-decoration: none;
         }
-        
-        @media (max-width: 768px) {
-            .main-layout {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-            }
-            .filename, .date {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <a href="#" class="nav-brand">🔒 OVKisser Sign Server</a>
+        <a href="index.html" class="nav-brand">🔒 OVKisser Sign Server</a>
         <div class="nav-links">
-            <a href="#">Downloads</a>
+            <a href="index.html">Downloads</a>
             <a href="#">API</a>
             <a href="#">About</a>
         </div>
     </nav>
     
     <div class="container">
-        <div class="main-layout">
-            <aside class="sidebar">
-                <div class="step">
-                    <span class="step-number">1.</span> Choose product
-                </div>
-                <div class="step">
-                    <span class="step-number">2.</span> Choose platform
-                </div>
-                <div class="step active">
-                    <span class="step-number">3.</span> Choose version
-                </div>
-                <div class="step">
-                    <span class="step-number">4.</span> Download
-                </div>
-            </aside>
-            
-            <main class="content">
-                <h1 class="page-title">Choose a version for OVKisser</h1>
-                
-                <div class="tabs">
-                    <div class="tab active">All Versions</div>
-                </div>
-                
-                <p class="description">
-                    Signed versions can be used without restrictions. Unsigned versions are revoked and cannot be used.
-                </p>
-                
-                <div id="status-container">
-                    <div class="loading">Loading signatures from server...</div>
-                </div>
-                
-                <button class="refresh-btn" onclick="loadStatus()">🔄 Refresh</button>
-            </main>
+        <h1 class="page-title">Choose a Product</h1>
+        <p class="page-subtitle">Select OVKisser to view available versions and signature status</p>
+        
+        <div class="products-grid">
+            <a href="platform.html" class="product-card">
+                <div class="product-icon">📱</div>
+                <div class="product-name">OVKisser</div>
+            </a>
         </div>
     </div>
     
     <footer>
         <p>Powered by HamsterCMS • <a href="https://t.me/ovkisserfun">Telegram Channel</a></p>
-        <p style="margin-top: 10px;">Source: <span id="source">cackemc10.w10.site</span> • Last updated: <span id="update">-</span></p>
     </footer>
-    
-    <script>
-        // Твой сервер с данными
-        const SOURCE_URL = 'https://cackemc10.w10.site/cgi-bin/cms/msdos';
-        
-        // Тестовые данные (если сервер недоступен)
-        const TEST_DATA = `
-            OvkisserLitev1.4=revoked
-            OvkisserTrueVD=revoked
-            OvkisserTruev1.0r=signed
-        `;
-        
-        async function loadStatus() {
-            const container = document.getElementById('status-container');
-            container.innerHTML = '<div class="loading">Loading signatures from server...</div>';
-            
-            try {
-                // Пробуем загрузить с сервера (через прокси если нужно)
-                let html;
-                try {
-                    const response = await fetch(SOURCE_URL, { 
-                        mode: 'no-cors',
-                        cache: 'no-cache'
-                    });
-                    html = await response.text();
-                } catch (e) {
-                    // Если CORS блокирует, используем тестовые данные
-                    console.log('Server unavailable, using test data');
-                    html = TEST_DATA;
-                }
-                
-                parseAndDisplay(html);
-                
-            } catch (error) {
-                // Fallback на тестовые данные
-                parseAndDisplay(TEST_DATA);
-            }
-        }
-        
-        function parseAndDisplay(text) {
-            const container = document.getElementById('status-container');
-            
-            // Парсим строки вида OvkisserXXX=signed/revoked
-            const regex = /(Ovkisser[\w.]+)[=:]\s*(signed|revoked)/gi;
-            const versions = [];
-            let match;
-            
-            while ((match = regex.exec(text)) !== null) {
-                versions.push({
-                    name: match[1],
-                    status: match[2].toLowerCase(),
-                    isSigned: match[2].toLowerCase() === 'signed'
-                });
-            }
-            
-            if (versions.length === 0) {
-                container.innerHTML = '<div class="error">No signature data found</div>';
-                return;
-            }
-            
-            // Разделяем на signed и unsigned
-            const signed = versions.filter(v => v.isSigned);
-            const unsigned = versions.filter(v => !v.isSigned);
-            
-            let html = '';
-            
-            // Signed секция
-            if (signed.length > 0) {
-                html += `
-                    <div class="section">
-                        <h2 class="section-title">Signed (${signed.length})</h2>
-                        <div class="firmware-list">
-                `;
-                signed.forEach(v => {
-                    html += `
-                        <div class="firmware-item signed">
-                            <div class="status-icon">✓</div>
-                            <div class="version">${v.name}</div>
-                            <div class="date">Active</div>
-                            <div class="size">Verified</div>
-                            <div class="filename">${v.name}_signed</div>
-                        </div>
-                    `;
-                });
-                html += '</div></div>';
-            }
-            
-            // Unsigned секция
-            if (unsigned.length > 0) {
-                html += `
-                    <div class="section">
-                        <h2 class="section-title">Unsigned (${unsigned.length})</h2>
-                        <div class="firmware-list">
-                `;
-                unsigned.forEach(v => {
-                    html += `
-                        <div class="firmware-item unsigned">
-                            <div class="status-icon">✗</div>
-                            <div class="version">${v.name}</div>
-                            <div class="date">Revoked</div>
-                            <div class="size">Blocked</div>
-                            <div class="filename">${v.name}_revoked</div>
-                        </div>
-                    `;
-                });
-                html += '</div></div>';
-            }
-            
-            container.innerHTML = html;
-            document.getElementById('update').textContent = new Date().toLocaleString();
-        }
-        
-        // Загружаем при старте
-        loadStatus();
-        
-        // Автообновление каждые 30 секунд
-        setInterval(loadStatus, 30000);
-    </script>
 </body>
 </html>
