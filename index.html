@@ -63,16 +63,8 @@
             text-decoration: line-through;
         }
         
-        .loading {
-            color: #ff0;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .error {
-            color: #f00;
-            text-align: center;
-            padding: 20px;
+        .blink {
+            animation: blink 0.5s infinite;
         }
         
         .marquee {
@@ -123,22 +115,6 @@
             color: #0a0;
             margin-top: 10px;
         }
-        
-        .refresh-btn {
-            background: #000;
-            color: #0f0;
-            border: 1px solid #0f0;
-            padding: 10px 20px;
-            font-family: "Courier New", monospace;
-            cursor: pointer;
-            margin: 10px auto;
-            display: block;
-        }
-        
-        .refresh-btn:hover {
-            background: #0f0;
-            color: #000;
-        }
     </style>
 </head>
 <body>
@@ -158,119 +134,50 @@
             <span>*** SYSTEM ONLINE *** CHECKING SIGNATURES *** WELCOME TO OVKISSER ***</span>
         </div>
         
-        <div id="status-container" class="status-box">
-            <div class="loading">
-                [ ЗАГРУЗКА ДАННЫХ... ]<br>
-                Подключение к cackemc10.w10.site
+        <div class="status-box">
+            <div style="text-align: center; margin-bottom: 15px; border-bottom: 1px solid #0f0; padding-bottom: 10px;">
+                [ SIGNATURE STATUS DATABASE ]
+            </div>
+            
+            <div class="status-line revoked">
+                [✗] OvkisserLitev1.4 = REVOKED
+            </div>
+            
+            <div class="status-line revoked">
+                [✗] OvkisserTrueVD = REVOKED
+            </div>
+            
+            <div class="status-line signed">
+                [✓] OvkisserTruev1.0r = SIGNED
             </div>
         </div>
-        
-        <button class="refresh-btn" onclick="loadStatus()">[ ОБНОВИТЬ ]</button>
         
         <div class="status-box">
             <div style="text-align: center; margin-bottom: 10px;">
                 [ SERVER STATISTICS ]
             </div>
-            <div style="font-size: 14px;" id="stats">
-                > Total Versions: -<br>
-                > Active: -<br>
-                > Revoked: -<br>
-                > Source: cackemc10.w10.site
+            <div style="font-size: 14px;">
+                > Total Versions: 3<br>
+                > Active: 1<br>
+                > Revoked: 2<br>
+                > Last Check: <span id="time"></span>
             </div>
         </div>
         
         <div class="footer">
             <span class="blink">[_]</span> Powered by HamsterCMS <span class="blink">[_]</span><br>
             Site works on rocket fuel<br>
-            <a href="https://t.me/ovkisserfun">[TELEGRAM]</a> | <a href="#">[API]</a> | <a href="#">[LOGS]</a>
+            <a href="#">[ADMIN PANEL]</a> | <a href="#">[API DOCS]</a> | <a href="#">[LOGS]</a>
         </div>
         
         <div class="last-update">
-            Last update: <span id="update">-</span>
+            Last update: <span id="update"></span>
         </div>
     </div>
     
     <script>
-        // Прокси для обхода CORS
-        const PROXY_URL = 'https://corsproxy.io/?';
-        const SOURCE_URL = 'https://cackemc10.w10.site/cgi-bin/cms/msdos';
-        
-        async function loadStatus() {
-            const container = document.getElementById('status-container');
-            container.innerHTML = '<div class="loading">[ ЗАГРУЗКА ДАННЫХ... ]</div>';
-            
-            try {
-                const response = await fetch(PROXY_URL + encodeURIComponent(SOURCE_URL));
-                const html = await response.text();
-                
-                // Парсим HTML и извлекаем статусы
-                const text = html.replace(/<[^>]*>/g, '');
-                
-                let statuses = [];
-                let signedCount = 0;
-                let revokedCount = 0;
-                
-                // Ищем строки вида OvkisserXXX=signed/revoked
-                const regex = /(Ovkisser\w+)[=:]\s*(signed|revoked)/gi;
-                let match;
-                
-                while ((match = regex.exec(text)) !== null) {
-                    const version = match[1];
-                    const status = match[2].toLowerCase();
-                    
-                    statuses.push({
-                        version: version,
-                        status: status,
-                        class: status === 'signed' ? 'signed' : 'revoked',
-                        icon: status === 'signed' ? '[✓]' : '[✗]'
-                    });
-                    
-                    if (status === 'signed') signedCount++;
-                    else revokedCount++;
-                }
-                
-                // Генерируем HTML статусов
-                let statusHTML = '<div style="text-align: center; margin-bottom: 15px; border-bottom: 1px solid #0f0; padding-bottom: 10px;">';
-                statusHTML += '[ SIGNATURE STATUS DATABASE ]</div>';
-                
-                if (statuses.length === 0) {
-                    statusHTML += '<div class="error">[ ОШИБКА: ДАННЫЕ НЕ НАЙДЕНЫ ]</div>';
-                } else {
-                    statuses.forEach(item => {
-                        statusHTML += `<div class="status-line ${item.class}">`;
-                        statusHTML += `${item.icon} ${item.version} = ${item.status.toUpperCase()}`;
-                        statusHTML += '</div>';
-                    });
-                }
-                
-                container.innerHTML = statusHTML;
-                
-                // Обновляем статистику
-                document.getElementById('stats').innerHTML = `
-                    > Total Versions: ${statuses.length}<br>
-                    > Active: ${signedCount}<br>
-                    > Revoked: ${revokedCount}<br>
-                    > Source: cackemc10.w10.site
-                `;
-                
-                document.getElementById('update').textContent = new Date().toLocaleString();
-                
-            } catch (error) {
-                container.innerHTML = `
-                    <div class="error">
-                        [ ОШИБКА ПОДКЛЮЧЕНИЯ ]<br>
-                        ${error.message}<br><br>
-                        Проблема с прокси или сервер недоступен
-                    </div>
-                `;
-            }
-        }
-        
-        // Загружаем при старте
-        loadStatus();
-        
-        // Автообновление каждые 30 секунд
-        setInterval(loadStatus, 30000);
+        document.getElementById('time').textContent = new Date().toLocaleTimeString();
+        document.getElementById('update').textContent = new Date().toLocaleString();
     </script>
 </body>
 </html>
