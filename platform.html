@@ -104,6 +104,13 @@
             align-items: center;
             justify-content: center;
             font-size: 40px;
+            overflow: hidden;
+        }
+        
+        .platform-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .platform-name {
@@ -141,7 +148,9 @@
         
         <div class="platforms-grid">
             <a href="versions.html" class="platform-card">
-                <div class="platform-icon">🤖</div>
+                <div class="platform-icon">
+                    <img src="logo.png" alt="OVKisser Client">
+                </div>
                 <div class="platform-name">OVKisser Client</div>
             </a>
         </div>
