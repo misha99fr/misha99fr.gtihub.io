@@ -37,6 +37,12 @@
             gap: 10px;
         }
         
+        .nav-brand img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+        }
+        
         .nav-links {
             display: flex;
             gap: 25px;
@@ -217,7 +223,10 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="index.html" class="nav-brand">🔒 OVKisser Sign Server</a>
+        <a href="index.html" class="nav-brand">
+            <img src="logo.png" alt="OVKisser">
+            OVKisser Sign Server
+        </a>
         <div class="nav-links">
             <a href="index.html">Downloads</a>
             <a href="#">API</a>
@@ -302,12 +311,10 @@
     </footer>
     
     <script>
-        // Парсим параметры URL
         const params = new URLSearchParams(window.location.search);
         const version = params.get('version') || 'OvkisserTruev1.0r';
         const status = params.get('status') || 'signed';
         
-        // Обновляем страницу в зависимости от статуса
         document.getElementById('version-title').textContent = version.replace(/([A-Z])/g, ' $1').trim();
         document.getElementById('version-code').textContent = version.replace('Ovkisser', '').replace('True', '').replace('Lite', '');
         document.getElementById('filename').textContent = version + '_' + status + '.apk';
@@ -316,7 +323,7 @@
             document.getElementById('status-badge').style.display = 'none';
             document.getElementById('revoked-message').style.display = 'block';
             document.getElementById('download-btn').textContent = '❌ Download Unavailable';
-            document.getElementById('download-btn').style.background = #ff453a;
+            document.getElementById('download-btn').style.background = '#ff453a';
             document.getElementById('download-btn').style.pointerEvents = 'none';
         }
         
