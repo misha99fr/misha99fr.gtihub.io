@@ -1,2 +1,2 @@
-# ryzikos
-cat
+# Ovkisser Signature Server
+Сервер подписи клиента Ovkisser
